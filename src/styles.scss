@@ -1,1 +1,26 @@
 /* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/theming';
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.default-notification-overlay{
+}
+.info-notification-overlay{
+  background-color: #000068;
+  color: #fff;
+  font-weight: bold;
+}
+.success-notification-overlay{
+  background-color: #004b00;
+  color: #fff;
+}
+.warning-notification-overlay{
+  background-color: #995300;
+  color: #fff;
+  font-weight: bold;
+}
+.error-notification-overlay{
+  background-color: #6e0000;
+  color: #fff;
+  font-weight: bold;
+}

@@ -1,0 +1,40 @@
+<section fxLayout="column">
+  <h1>Sign In</h1>
+  <form [formGroup]="signInForm"
+        (ngSubmit)="signInForm.valid && submitForm(signInForm.value)"
+        fxLayout="column"
+        fxLayoutAlign="center">
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your email</mat-label>
+      <input matInput
+             formControlName="email"
+             type="email">
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your password</mat-label>
+      <input matInput
+             formControlName="password"
+             [type]="hide ? 'password' : 'text'">
+      <button mat-icon-button
+              matSuffix
+              (click)="hide = !hide"
+              [attr.aria-label]="'Hide password'"
+              [attr.aria-pressed]="hide">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <button class="submit-btn"
+            mat-button
+            type="submit"
+            color="primary"
+    >Sign in
+    </button>
+  </form>
+  <button mat-icon-button
+          style="margin: 10px 0 0 auto"
+          aria-label="Example icon-button with a heart icon"
+          (click)="authService.GoogleAuth()">
+    <mat-icon class="mat-icon-rtl-mirror"
+              svgIcon="googleSVG"></mat-icon>
+  </button>
+</section>

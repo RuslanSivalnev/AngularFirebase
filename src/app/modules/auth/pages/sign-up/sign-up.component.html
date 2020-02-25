@@ -1,0 +1,32 @@
+<section>
+<h1>Sign Up</h1>
+
+<form [formGroup]="signUpForm"
+      (ngSubmit)="signUpForm.valid && submitForm(signUpForm.value)"
+      fxLayout="column"
+      fxLayoutAlign="center">
+  <mat-form-field >
+    <mat-label>Enter your email</mat-label>
+    <input matInput
+           formControlName="userName"
+           type="text">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Enter your password</mat-label>
+    <input matInput
+           formControlName="password"
+           type="password">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Repeat your password</mat-label>
+    <input matInput
+           formControlName="c_password"
+           type="password">
+  </mat-form-field>
+  <button class="submit-btn"
+          mat-button
+          color="primary"
+          type="submit">Sign up
+  </button>
+</form>
+</section>

@@ -1,0 +1,24 @@
+mat-card {
+  max-width: 900px;
+  margin: 0 auto;
+  min-height: 400px
+}
+
+.un-auth-navigate button {
+  border: 1px solid transparent;
+
+  &.active {
+    border: 1px solid #fff;
+    box-sizing: border-box;
+  }
+}
+
+[mat-menu-item] {
+  font-weight: 500;
+
+  &.menu-active {
+    color: #673ab7;
+  }
+}
+
+
