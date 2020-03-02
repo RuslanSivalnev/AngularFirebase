@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
 export class SignInComponent implements OnInit {
   signInForm: FormGroup;
   hide = true;
-  isLoggedIn$;
 
   constructor(
     public authService: AuthService,
@@ -22,7 +21,6 @@ export class SignInComponent implements OnInit {
     private domSanitizer: DomSanitizer,
     private router: Router
   ) {
-    this.isLoggedIn$ = this.authService.isLoginSubject.asObservable();
     this.matIconRegistry.addSvgIcon('googleSVG', this.domSanitizer.bypassSecurityTrustResourceUrl('./assets/google.svg'));
   }
 

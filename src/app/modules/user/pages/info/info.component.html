@@ -1,6 +1,7 @@
 <mat-card>
   <mat-card-content fxLayout="column"
-                    fxLayout.gt-sm="row">
+                    fxLayout.gt-sm="row"
+                    *ngIf="user$ | async as user">
     <img [src]="user.photoURL"
          alt="">
     <div class="info"

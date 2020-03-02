@@ -3,7 +3,7 @@ import {auth} from 'firebase/app';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {AngularFirestore, AngularFirestoreDocument} from '@angular/fire/firestore';
 import {Router} from '@angular/router';
-import {User} from '../../shared/interfaces/user';
+import {IUser} from '../../shared/interfaces/i-user.interface';
 import {BehaviorSubject} from 'rxjs';
 import {NotificationsService} from './notifications.service';
 
@@ -13,7 +13,7 @@ import {NotificationsService} from './notifications.service';
 
 export class AuthService {
   userData: any;
-  isLoginSubject = new BehaviorSubject<boolean>(this.initAuthState);
+  user = new BehaviorSubject<IUser | null>(this.getUser);
 
   constructor(
     public afs: AngularFirestore,
@@ -35,20 +35,15 @@ export class AuthService {
 
     this.afAuth.auth.onAuthStateChanged((user) => {
       if (user) {
-        this.isLoginSubject.next(true);
+        this.user.next(user);
       } else {
-        this.isLoginSubject.next(false);
+        this.user.next(null);
       }
     });
   }
 
   get getUser() {
     return JSON.parse(localStorage.getItem('user'));
-  }
-
-  get initAuthState(): boolean {
-    const user = JSON.parse(localStorage.getItem('user'));
-    return !!(user !== null && user.uid.length);
   }
 
   // Sign in with email/password
@@ -98,14 +93,14 @@ export class AuthService {
         });
       })
       .catch((error) => {
-        this.isLoginSubject.next(false);
+        // this.user.next(null);
         this.notificationsService.error(error.message);
       });
   }
 
   SetUserData(user) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    const userData: User = {
+    const userData: IUser = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName,

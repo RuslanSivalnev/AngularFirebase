@@ -6,6 +6,7 @@ import {AngularFireAuthModule} from '@angular/fire/auth';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {environment} from '../../environments/environment';
 import {AuthService} from './services/auth.service';
+import {AngularFireDatabaseModule} from '@angular/fire/database';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import {AuthService} from './services/auth.service';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireDatabaseModule
   ],
   exports: [
     /** angular */
@@ -30,6 +32,7 @@ import {AuthService} from './services/auth.service';
     AngularFireModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireDatabaseModule
   ]
 })
 export class CoreModule {

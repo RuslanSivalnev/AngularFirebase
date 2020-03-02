@@ -1,0 +1,27 @@
+<section>
+  <h1>Your todo</h1>
+
+  <form [formGroup]="createTodoForm"
+        (ngSubmit)="createTodoForm.valid && createTodo(createTodoForm.value)"
+        fxLayout="column"
+        fxLayoutAlign="center">
+    <mat-form-field >
+      <mat-label>Title</mat-label>
+      <input matInput
+             formControlName="title"
+             type="text">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Deal</mat-label>
+      <input matInput
+             formControlName="value"
+             type="text">
+    </mat-form-field>
+
+    <button class="submit-btn"
+            mat-button
+            color="primary"
+            type="submit">Create
+    </button>
+  </form>
+</section>

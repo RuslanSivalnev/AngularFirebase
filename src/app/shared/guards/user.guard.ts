@@ -11,8 +11,8 @@ export class UserGuard implements CanActivate {
   isLogged: boolean;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.authService.isLoginSubject.asObservable().subscribe(status => {
-      this.isLogged = status;
+    this.authService.user.asObservable().subscribe(status => {
+      this.isLogged = !!status;
     });
   }
 

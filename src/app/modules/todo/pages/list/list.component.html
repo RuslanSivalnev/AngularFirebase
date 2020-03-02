@@ -1,0 +1,7 @@
+<mat-card *ngFor="let todo of todoList$ | async">
+  <mat-card-title>{{todo.title}}</mat-card-title>
+  <mat-card-content >
+      <p>todo value: {{todo.value}}</p>
+      <p>todo date: {{todo.createDate}}</p>
+  </mat-card-content>
+</mat-card>

@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {AuthService} from './core/services/auth.service';
 import {Observable} from 'rxjs';
+import {IUser} from './shared/interfaces/i-user.interface';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +11,9 @@ import {Observable} from 'rxjs';
 export class AppComponent {
   title = 'AngularFirebase';
 
-  isLogged$: Observable<boolean>;
+  user$: Observable<IUser | boolean> = this.authService.user.asObservable();
 
   constructor(public authService: AuthService) {
-    this.isLogged$ = this.authService.isLoginSubject.asObservable();
-
   }
 
   signOut() {
