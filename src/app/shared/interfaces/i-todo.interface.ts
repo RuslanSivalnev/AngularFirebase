@@ -1,6 +1,8 @@
 export interface ITodo {
-  done: boolean;
-  title: string;
-  value: string;
-  createDate: Date;
+  key: string;
+  value: {
+    done: boolean;
+    value: string;
+    createDate: Date;
+  };
 }

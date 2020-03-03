@@ -3,6 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {UserComponent} from './pages/user.component';
 import {InfoComponent} from './pages/info/info.component';
+import {TodoComponent} from './pages/todo/todo.component';
 
 const routes: Routes = [
   {
@@ -14,7 +15,7 @@ const routes: Routes = [
         path: 'info', component: InfoComponent
       },
       {
-        path: 'to-do', loadChildren: () => import('../../modules/todo/todo.module').then(m => m.TodoModule)
+        path: 'to-do', component: TodoComponent
       }
     ]
   }

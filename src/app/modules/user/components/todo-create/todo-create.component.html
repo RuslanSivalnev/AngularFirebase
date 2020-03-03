@@ -1,0 +1,19 @@
+<form [formGroup]="todoForm"
+      novalidate
+      (ngSubmit)="todoForm.valid && emitHandler(todoForm.value)"
+>
+  <mat-form-field fxFlex="100">
+    <mat-label>Deal</mat-label>
+    <input matInput
+           formControlName="value"
+           type="text">
+    <button class="submit-btn"
+            mat-button
+            fxFlex="10"
+            color="primary"
+            type="submit">Create
+    </button>
+  </mat-form-field>
+
+
+</form>

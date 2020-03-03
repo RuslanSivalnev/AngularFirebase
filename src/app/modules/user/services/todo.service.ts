@@ -2,6 +2,7 @@ import {AngularFireDatabase, AngularFireList, AngularFireObject} from '@angular/
 import {Injectable} from '@angular/core';
 import {ITodo} from '../../../shared/interfaces/i-todo.interface';
 import {Router} from '@angular/router';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +19,10 @@ export class TodoService {
   }
 
   /* Create todo */
-  addTodo(todo: ITodo, userId) {
+  addTodo(todo, userId) {
     this.todosRef = this.db.list(`/todo-list/${userId}`);
     this.todosRef.push({
       done: todo.done,
-      title: todo.title,
       value: todo.value,
       createDate: todo.createDate
     })
@@ -42,8 +42,13 @@ export class TodoService {
 
   /* Get todo list */
   getTodoList(userId) {
-    this.todosRef = this.db.list(`/todo-list/${userId}`);
-    return this.todosRef;
+    return this.db.list(`/todo-list/${userId}`).snapshotChanges().pipe(
+      map(changes => changes.map(c => {
+          return ({key: c.payload.key, value: c.payload.val()}) as ITodo;
+        })
+          .sort((a, b) => +b.value.createDate - +a.value.createDate)
+      ));
+
   }
 
   /* Update todo */
@@ -57,12 +62,9 @@ export class TodoService {
   // }
 
   /* Delete todo */
-  deleteTodo(userId: string) {
-    this.todoRef = this.db.object(`/todo-list/${userId}`);
-    this.todoRef.remove()
-      .catch(error => {
-        this.errorMgmt(error);
-      });
+  deleteTodo(userId: string, key: string) {
+    this.db.list(`/todo-list/${userId}`)
+      .remove(key).then(res => console.log('res', res));
   }
 
   private errorMgmt(error) {

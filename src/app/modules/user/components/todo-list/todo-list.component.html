@@ -1,0 +1,16 @@
+<mat-card *ngFor="let todo of todoList$">
+  <mat-card-content fxLayout="column">
+    <div fxFlexAlign="end">
+      <button mat-button mat-icon-button color="primary">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-button mat-icon-button color="warn" >
+        <mat-icon (click)="emitDelete.emit(todo.key)">delete_outline</mat-icon>
+      </button>
+    </div>
+    <div fxLayout="column">
+      <p class="to-do-value">{{todo.value.value}}</p>
+      <p fxFlexAlign="end" class="to-do-date">{{todo.value.createDate | date: 'medium'}}</p>
+    </div>
+  </mat-card-content>
+</mat-card>

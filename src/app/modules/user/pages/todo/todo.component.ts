@@ -1,16 +1,16 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AuthService} from '../../../../core/services/auth.service';
 import {IUser} from '../../../../shared/interfaces/i-user.interface';
-import {TodoService} from '../../services/todo.service';
 import {Observable} from 'rxjs';
 import {ITodo} from '../../../../shared/interfaces/i-todo.interface';
+import {AuthService} from '../../../../core/services/auth.service';
+import {TodoService} from '../../services/todo.service';
 
 @Component({
-  selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  selector: 'app-todo',
+  templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.scss']
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class TodoComponent implements OnInit, OnDestroy {
   streamUser$;
   user: IUser | null;
   todoList$: Observable<ITodo[]>;
@@ -22,17 +22,24 @@ export class ListComponent implements OnInit, OnDestroy {
     this.streamUser$ = authService.user.asObservable().subscribe(user => {
       this.user = user;
     });
-    this.todoList$ = this.todoService.getTodoList(this.user.uid).valueChanges();
+    this.todoList$ = this.todoService.getTodoList(this.user.uid);
   }
 
   ngOnInit(): void {
   }
 
-  addTodo() {
-  }
 
+  createTodo(formValue: ITodo) {
+    // console.log('fv', formValue);
+    this.todoService.addTodo(formValue, this.user.uid);
+  }
 
   ngOnDestroy(): void {
     this.streamUser$.unsubscribe();
+  }
+
+  deleteTodo(createDate) {
+    console.log('-------asd', createDate);
+    // this.todoService.deleteTodo(this.user.uid);
   }
 }

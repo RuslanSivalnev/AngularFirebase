@@ -1,0 +1,4 @@
+<section>
+  <app-todo-create (eventTodoData)="createTodo($event)"></app-todo-create>
+  <app-todo-list (emitDelete)="deleteTodo($event)" [todoList$]="todoList$ | async"></app-todo-list>
+</section>
