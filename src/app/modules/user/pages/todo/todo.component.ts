@@ -30,7 +30,6 @@ export class TodoComponent implements OnInit, OnDestroy {
 
 
   createTodo(formValue: ITodo) {
-    // console.log('fv', formValue);
     this.todoService.addTodo(formValue, this.user.uid);
   }
 
@@ -38,8 +37,11 @@ export class TodoComponent implements OnInit, OnDestroy {
     this.streamUser$.unsubscribe();
   }
 
-  deleteTodo(createDate) {
-    console.log('-------asd', createDate);
-    // this.todoService.deleteTodo(this.user.uid);
+  deleteTodo(key): void {
+    this.todoService.deleteTodo(this.user.uid, key);
+  }
+
+  updateTodo(todo) {
+    this.todoService.updateTodo(this.user.uid, todo);
   }
 }

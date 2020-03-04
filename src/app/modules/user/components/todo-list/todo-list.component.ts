@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {Observable} from 'rxjs';
+import {ITodo} from '../../../../shared/interfaces/i-todo.interface';
 
 @Component({
   selector: 'app-todo-list',
@@ -8,9 +8,10 @@ import {Observable} from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent implements OnInit {
-
-  @Input() todoList$;
+  isUpdateAction = false;
+  @Input() todoList$: ITodo[];
   @Output() emitDelete = new EventEmitter();
+  @Output() emitUpdate = new EventEmitter();
 
   constructor() {
   }

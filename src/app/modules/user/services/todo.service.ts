@@ -3,6 +3,7 @@ import {Injectable} from '@angular/core';
 import {ITodo} from '../../../shared/interfaces/i-todo.interface';
 import {Router} from '@angular/router';
 import {map} from 'rxjs/operators';
+import {NotificationsService} from '../../../core/services/notifications.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class TodoService {
 
   constructor(
     private db: AngularFireDatabase,
-    private router: Router
+    private router: Router,
+    private notificationsService: NotificationsService
   ) {
   }
 
@@ -26,11 +28,11 @@ export class TodoService {
       value: todo.value,
       createDate: todo.createDate
     })
-      .then(() => {
-        this.router.navigate(['user/to-do']);
+      .then(_ => {
+        this.notificationsService.success('cool man, to-do was added');
       })
       .catch(error => {
-        this.errorMgmt(error);
+        this.notificationsService.error(error);
       });
   }
 
@@ -52,22 +54,18 @@ export class TodoService {
   }
 
   /* Update todo */
-  // updateTodo(id, todo: ITodo) {
-  //   this.todoRef.update({
-  //
-  //   })
-  //     .catch(error => {
-  //       this.errorMgmt(error);
-  //     });
-  // }
-
-  /* Delete todo */
-  deleteTodo(userId: string, key: string) {
-    this.db.list(`/todo-list/${userId}`)
-      .remove(key).then(res => console.log('res', res));
+  updateTodo(userId, todo: ITodo) {
+    this.todosRef = this.db.list(`/todo-list/${userId}`);
+    this.todosRef
+      .update(todo.key, todo.value)
+      .then(_ => this.notificationsService.error('man, to-do was corrected'))
+      .catch(error => this.notificationsService.error(error));
   }
 
-  private errorMgmt(error) {
-    console.log(error);
+  /* Delete todo */
+  deleteTodo(userId: string, key: string): void {
+    this.db.list(`/todo-list/${userId}`)
+      .remove(key)
+      .then(_ => this.notificationsService.info('man, to-do was deleted'));
   }
 }
