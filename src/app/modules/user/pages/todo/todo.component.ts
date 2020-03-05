@@ -41,7 +41,12 @@ export class TodoComponent implements OnInit, OnDestroy {
     this.todoService.deleteTodo(this.user.uid, key);
   }
 
-  updateTodo(todo) {
+  updateTodo(todo: ITodo) {
+    this.todoService.updateTodo(this.user.uid, todo);
+  }
+
+  resolveTodo(todo: ITodo) {
+    todo.value.done = !todo.value.done;
     this.todoService.updateTodo(this.user.uid, todo);
   }
 }

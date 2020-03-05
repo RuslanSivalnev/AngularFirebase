@@ -4,5 +4,6 @@ export interface ITodo {
     done: boolean;
     value: string;
     createDate: Date;
+    change_status?: boolean
   };
 }

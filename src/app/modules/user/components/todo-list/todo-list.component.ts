@@ -8,10 +8,10 @@ import {ITodo} from '../../../../shared/interfaces/i-todo.interface';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TodoListComponent implements OnInit {
-  isUpdateAction = false;
-  @Input() todoList$: ITodo[];
+  @Input() todoList: ITodo[];
   @Output() emitDelete = new EventEmitter();
   @Output() emitUpdate = new EventEmitter();
+  @Output() emitResolve = new EventEmitter();
 
   constructor() {
   }

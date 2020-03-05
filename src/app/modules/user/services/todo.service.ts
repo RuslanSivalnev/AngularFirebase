@@ -58,7 +58,7 @@ export class TodoService {
     this.todosRef = this.db.list(`/todo-list/${userId}`);
     this.todosRef
       .update(todo.key, todo.value)
-      .then(_ => this.notificationsService.error('man, to-do was corrected'))
+      .then(_ => this.notificationsService.success('man, to-do was corrected'))
       .catch(error => this.notificationsService.error(error));
   }
 

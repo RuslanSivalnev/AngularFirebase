@@ -1,21 +1,54 @@
-<mat-card *ngFor="let todo of todoList$">
-  <mat-card-content fxLayout="column">
+
+<mat-card *ngFor="let todo of todoList">
+  <mat-card-content
+    fxLayout="column"
+    [ngClass]="todo.value.done ? 'to-do-is-done' : null"
+  >
     <div fxFlexAlign="end">
-      <button mat-button mat-icon-button color="primary">
+
+      <button mat-button
+              mat-icon-button
+              color="primary"
+              *ngIf="!todo.value.change_status"
+              (click)="todo.value.change_status = true"
+      >
         <mat-icon>
-          {{isUpdateAction ? 'done' : 'edit'}}
+          edit
         </mat-icon>
       </button>
-      <button mat-button mat-icon-button color="warn">
-        <mat-icon (click)="emitDelete.emit(todo.key)">delete_outline</mat-icon>
+
+      <button mat-button
+              mat-icon-button
+              style="color: green"
+              *ngIf="todo.value.change_status"
+              (click)="todo.value.change_status = false; emitUpdate.emit(todo)"
+      >
+        <mat-icon>
+          done
+        </mat-icon>
       </button>
+
+      <button mat-button
+              mat-icon-button
+              color="warn"
+      >
+        <mat-icon (click)="emitDelete.emit(todo.key)">
+          delete_outline
+        </mat-icon>
+      </button>
+
     </div>
+
     <div fxLayout="column">
-      <p *ngIf="!isUpdateAction" class="to-do-value">{{todo.value.value}}</p>
-      <mat-form-field *ngIf="isUpdateAction" fxFlex="100">
+      <p *ngIf="!todo.value.change_status"
+         class="to-do-value"
+         (click)="emitResolve.emit(todo)"
+      >{{todo.value.value}}</p>
+      <mat-form-field *ngIf="todo.value.change_status" fxFlex="100">
         <mat-label>Deal</mat-label>
-        <input matInput type="text" [value]="todo.value.value">
+        <input matInput type="text" [(ngModel)]="todo.value.value">
       </mat-form-field>
+
       <p fxFlexAlign="end" class="to-do-date">{{todo.value.createDate | date: 'medium'}}</p>
     </div>
   </mat-card-content>

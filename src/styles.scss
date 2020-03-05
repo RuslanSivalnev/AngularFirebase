@@ -24,3 +24,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   color: #fff;
   font-weight: bold;
 }
+section::-webkit-scrollbar {
+  width: 3px;
+}
+
+section::-webkit-scrollbar-thumb {
+  background-color: #673ab7;
+}

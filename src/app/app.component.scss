@@ -1,7 +1,7 @@
 mat-card {
   max-width: 900px;
   margin: 0 auto;
-  min-height: 400px
+  height: calc(100vh - 100px)
 }
 
 .un-auth-navigate button {
@@ -22,3 +22,8 @@ mat-card {
 }
 
 
+mat-toolbar{
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
